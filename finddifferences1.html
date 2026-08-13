@@ -90,6 +90,28 @@
 
   * { box-sizing: border-box; }
 
+  .home-btn {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 40;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 999px;
+    background: var(--card);
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.4rem 1rem var(--shadow);
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .home-btn:hover { transform: translateY(-1px) scale(1.04); }
+  .home-btn svg { width: 1.5rem; height: 1.5rem; }
+
   html, body {
     margin: 0;
     padding: 0;
@@ -612,6 +634,13 @@
 </style>
 </head>
 <body>
+<a class="home-btn" href="https://portal.smoove.io/gsbmtbnbbf1yd87kbofd1/Category?category=qqb" aria-label="חזרה לעולמות של סול">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 11l9-8 9 8" />
+    <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" />
+  </svg>
+</a>
+
 <div class="stage">
   <header class="hero">
     <div class="hero-text">
