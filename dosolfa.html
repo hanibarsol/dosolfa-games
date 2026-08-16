@@ -812,9 +812,49 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
+
+  /* ---------- Home button ---------- */
+  .home-btn {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 800;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: #17A79B;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.35rem 0.9rem rgba(18, 48, 44, 0.22);
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .home-btn:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 0.6rem 1.2rem rgba(18, 48, 44, 0.3); }
+  .home-btn:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
+  .home-btn svg { width: 26px; height: 26px; }
+
+  @media (max-width: 640px) {
+    .home-btn { width: 44px; height: 44px; top: 8px; left: 8px; }
+    .home-btn svg { width: 22px; height: 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-btn { transition: none; }
+    .home-btn:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
+<a class="home-btn" href="https://portal.smoove.io/gsbmtbnbbf1yd87kbofd1/Category?category=qqb" target="_top" aria-label="חזרה למסך הבית">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 11l9-8 9 8" />
+    <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" />
+  </svg>
+</a>
 <main dir="rtl" lang="he">
   <header class="hero">
     <span class="clef" aria-hidden="true">&#119070;</span>
