@@ -92,36 +92,25 @@
 
   .home-btn {
     position: fixed;
-    top: 12px;
-    left: 12px;
+    top: 1.25rem;
+    left: 1.25rem;
     z-index: 40;
-    width: 52px;
-    height: 52px;
+    width: 3.2rem;
+    height: 3.2rem;
     border-radius: 999px;
-    background: #17A79B;
-    border: none;
-    color: #FFFFFF;
+    background: var(--card);
+    border: 2px solid var(--teal);
+    color: var(--teal);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0.35rem 0.9rem rgba(18, 48, 44, 0.22);
+    box-shadow: 0 0.4rem 1rem var(--shadow);
     text-decoration: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease;
   }
 
-  .home-btn:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 0.6rem 1.2rem rgba(18, 48, 44, 0.3); }
-  .home-btn:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }
-  .home-btn svg { width: 26px; height: 26px; }
-
-  @media (max-width: 640px) {
-    .home-btn { width: 44px; height: 44px; top: 8px; left: 8px; }
-    .home-btn svg { width: 22px; height: 22px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .home-btn { transition: none; }
-    .home-btn:hover { transform: none; }
-  }
+  .home-btn:hover { transform: translateY(-1px) scale(1.04); }
+  .home-btn svg { width: 1.5rem; height: 1.5rem; }
 
   html, body {
     margin: 0;
@@ -642,14 +631,10 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   }
-
-  /* On a phone the fixed home button sits over the title — reserve its corner
-     rather than shrinking anything. */
-  @media (max-width: 640px) { .hero { padding-left: 60px; } }
 </style>
 </head>
 <body>
-<a class="home-btn" href="https://portal.smoove.io/gsbmtbnbbf1yd87kbofd1/Category?category=qqb" target="_top" aria-label="חזרה לעולמות של סול">
+<a class="home-btn" href="https://portal.smoove.io/gsbmtbnbbf1yd87kbofd1/Category?category=qqb" aria-label="חזרה לעולמות של סול">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M3 11l9-8 9 8" />
     <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" />
@@ -951,6 +936,7 @@
 
     if (isClick) {
       var hit = -1;
+      var hitDist = Infinity;
       for (var i = 0; i < NOTES.length; i++) {
         if (found[i]) continue;
         var n = NOTES[i];
@@ -958,7 +944,10 @@
         var dy = (fy - n.fy) * rect.height;
         var dist = Math.sqrt(dx * dx + dy * dy);
         var hitR = Math.max(n.fr * rect.width, 26) * 1.25;
-        if (dist <= hitR) { hit = i; break; }
+        // Pick the nearest candidate whose radius contains the tap, not just the
+        // first in array order — on narrow screens the 26px touch-target floor
+        // can make two nearby differences' radii overlap.
+        if (dist <= hitR && dist < hitDist) { hit = i; hitDist = dist; }
       }
       if (hit >= 0) {
         markFound(hit, px, py, canvasEl);
