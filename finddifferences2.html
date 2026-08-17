@@ -762,12 +762,23 @@
     if (!audioCtx) return null;
     // Every caller shares this one resume() call/promise instead of each tap
     // kicking off its own — concurrent independent resume() calls on a fresh
-    // context are what caused the first several finds to stay silent on some
-    // phones before the context settled into "running".
+    // context are what caused early finds to stay silent on some phones before
+    // the context settled into "running".
     if (!audioReadyPromise) {
-      audioReadyPromise = audioCtx.state === "running"
-        ? Promise.resolve()
-        : audioCtx.resume().then(function () {});
+      if (audioCtx.state === "running") {
+        audioReadyPromise = Promise.resolve();
+      } else {
+        var ctxRef = audioCtx;
+        audioReadyPromise = new Promise(function (resolve) {
+          var done = false;
+          var settle = function () { if (!done) { done = true; resolve(); } };
+          // Some browsers/devices can leave resume()'s promise pending
+          // indefinitely — don't let that permanently silence every future
+          // tone. Proceed after a short timeout regardless, best-effort.
+          try { ctxRef.resume().then(settle, settle); } catch (e) { settle(); }
+          setTimeout(settle, 400);
+        });
+      }
     }
     return audioCtx;
   }
