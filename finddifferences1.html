@@ -642,6 +642,10 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   }
+
+  /* On a phone the fixed home button sits over the title — reserve its corner
+     rather than shrinking anything. */
+  @media (max-width: 640px) { .hero { padding-left: 60px; } }
 </style>
 </head>
 <body>
