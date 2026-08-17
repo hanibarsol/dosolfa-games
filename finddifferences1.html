@@ -725,6 +725,7 @@
   var found = {};
   var foundCount = 0;
   var audioCtx = null;
+  var audioReadyPromise = null;
 
   var staffEl = document.getElementById("staff");
   var staffCountEl = document.getElementById("staffCount");
@@ -761,7 +762,16 @@
       var Ctx = window.AudioContext || window.webkitAudioContext;
       if (Ctx) audioCtx = new Ctx();
     }
-    if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+    if (!audioCtx) return null;
+    // Every caller shares this one resume() call/promise instead of each tap
+    // kicking off its own — concurrent independent resume() calls on a fresh
+    // context are what caused the first several finds to stay silent on some
+    // phones before the context settled into "running".
+    if (!audioReadyPromise) {
+      audioReadyPromise = audioCtx.state === "running"
+        ? Promise.resolve()
+        : audioCtx.resume().then(function () {});
+    }
     return audioCtx;
   }
 
@@ -795,13 +805,13 @@
     }
 
     // On a freshly created/resumed context the audio thread isn't reliably "live"
-    // yet — a tone scheduled in that same tick can be silently dropped (this is
-    // why only the very first note was missing). Wait for resume() to genuinely
-    // settle before scheduling; once running, this resolves immediately.
+    // yet — a tone scheduled in that same tick can be silently dropped. Wait for
+    // the shared resume() promise to genuinely settle before scheduling; once
+    // running, this resolves immediately.
     if (ctx.state === "running") {
       fire();
     } else {
-      ctx.resume().then(fire);
+      audioReadyPromise.then(fire);
     }
   }
 
