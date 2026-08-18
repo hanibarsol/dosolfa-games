@@ -1,11 +1,9 @@
 # משחקי דו-סול-פה
 
-ארבעה משחקים מתוך "המשפחה של סול" — פלטפורמה מוזיקלית לילדים בגילי 4-8.
+שני משחקים מתוך "המשפחה של סול" — פלטפורמה מוזיקלית לילדים בגילי 4-8.
 
-- https://hanibarsol.github.io/dosolfa-games/dosolfa.html
-- https://hanibarsol.github.io/dosolfa-games/rhythm.html
-- https://hanibarsol.github.io/dosolfa-games/finddifferences1.html
-- https://hanibarsol.github.io/dosolfa-games/finddifferences2.html
+- https://hanibarsol.github.io/dosolfa-games/finddifferences1.html — עולם 8, שיעור 5
+- https://hanibarsol.github.io/dosolfa-games/finddifferences2.html — עולם 8, שיעור 6
 
 ## שני קבצים כאן הם הפניות, לא משחקים
 
@@ -41,7 +39,7 @@
 (44px מתחת ל-640px רוחב). מוביל לפורטל Smoove עם `target="_top"`.
 
 זהו הכפתור האחיד בכל 27 הדפים של הפלטפורמה, מ-2026-08-16. הוא קיים
-בכל ארבעת הדפים כאן. אם משחזרים גרסה ישנה של קובץ — לוודא שהכפתור שרד.
+בשני המשחקים כאן. אם משחזרים גרסה ישנה של קובץ — לוודא שהכפתור שרד.
 
 ## כללי פינות
 
