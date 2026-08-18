@@ -7,6 +7,23 @@
 - https://hanibarsol.github.io/dosolfa-games/finddifferences1.html
 - https://hanibarsol.github.io/dosolfa-games/finddifferences2.html
 
+## שני קבצים כאן הם הפניות, לא משחקים
+
+`dosolfa.html` ו-`rhythm.html` היו עותקים שניים של משחקים שכבר חיים
+במאגרים משלהם. עותק שני פירושו ששינוי נוחת באחד ולא בשני, ולכן ב-2026-08-19
+הוחלף התוכן שלהם בהפניה אוטומטית:
+
+| הקובץ | מפנה אל |
+|-------|---------|
+| `dosolfa.html` | https://hanibarsol.github.io/makhelet-do-re-mi/ |
+| `rhythm.html` | https://hanibarsol.github.io/sol-rhythm-basic/ |
+
+**אין להחזיר לתוכם משחק ואין לערוך אותם כשיעורים.** שינוי במקהלת נעשה
+ב-`makhelet-do-re-mi`, ושינוי במשחק הקצב הבסיסי ב-`sol-rhythm-basic`.
+
+שני השיעורים החיים בתיקייה הזו הם `finddifferences1.html` ו-`finddifferences2.html`
+בלבד.
+
 ## איך מעלים שינוי — חשוב
 
 **רק דרך git.** `git pull` לפני כל עריכה, ואז commit ו-push רגילים.
