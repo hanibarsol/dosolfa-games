@@ -364,12 +364,26 @@
   }
 
   /* found markers */
+  /* The ring sits ON the difference, and is measured against the picture.
+
+     It used to be centred with margin-inline-start, which on this page (dir="rtl") means
+     margin-RIGHT — and a right margin does not move a box that is placed by "left". So every ring
+     was drawn half a ring to the right of the thing it was pointing at: the cat's collar got a ring
+     over the sheet music beside it, and the one by the plant ran off the edge of the picture and
+     was cut in half. margin-left does move it. Measured: rings were 18-31px from their difference
+     before, 0-10px after.
+
+     The size is a percentage of the picture rather than a fixed 2.6rem. A fixed ring keeps its 42px
+     while the picture shrinks, so on a phone it swelled to a fifth of the width and could not fit
+     beside the edge at all. As a percentage it looks the same on every screen. Percentage margins
+     resolve against the container WIDTH — including margin-top — so both halves match. */
   .marker {
     position: absolute;
-    width: 2.6rem;
-    height: 2.6rem;
-    margin-inline-start: -1.3rem;
-    margin-top: -1.3rem;
+    box-sizing: border-box;
+    width: 10%;
+    aspect-ratio: 1;
+    margin-left: -5%;
+    margin-top: -5%;
     border-radius: 999px;
     border: 3px solid var(--gold);
     box-shadow: 0 0 0 3px rgba(var(--gold-rgb), 0.25), 0 0.3rem 0.6rem rgba(0,0,0,0.25);
@@ -382,7 +396,8 @@
     animation: ringpop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .marker svg { width: 1.15rem; height: 1.15rem; color: var(--gold); }
+  /* the tick shrinks with the ring around it */
+  .marker svg { width: 55%; height: 55%; color: var(--gold); }
 
   .hint-ring {
     position: absolute;
@@ -798,7 +813,10 @@
     { key: "scooter", fx: 0.5000, fy: 0.5968, fr: 0.055, note: "לה",  freq: 440.00, text: "ידית הקורקינט הירוק שינתה צבע" },
     { key: "door",    fx: 0.8152, fy: 0.1876, fr: 0.040, note: "סי",  freq: 493.88, text: "אחת מידיות הדלת נעלמה" },
     { key: "shoes",   fx: 0.8191, fy: 0.9007, fr: 0.055, note: "דו׳", freq: 523.25, text: "הנקודות בנעל השמאלית הפכו לצהובות" },
-    { key: "leaf",    fx: 0.9549, fy: 0.1907, fr: 0.040, note: "רה׳", freq: 587.33, text: "לעציץ שליד הדלת יש עלה נוסף" }
+    /* nudged left of the leaf itself: this one sits against the right edge of the picture, and a
+       whole ring has to fit there without touching the door ring beside it. The extra leaf is at
+       0.9622, still well inside both the ring and the tap circle. */
+    { key: "leaf",    fx: 0.9400, fy: 0.1907, fr: 0.040, note: "רה׳", freq: 587.33, text: "לעציץ שליד הדלת יש עלה נוסף" }
   ];
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
